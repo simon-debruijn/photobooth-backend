@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "./zod"
+  modelCase             = "PascalCase"
+  prismaJsonNullability = "true"
+  modelSuffix           = "Model"
+  relationModel         = "true"
+  useDecimalJs          = "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model customer {
+  /// @zod.optional()
+  id       Int      @id @default(autoincrement())
+  email    String
+  password String
+  /// @zod.optional()
+  tokens   String[]
+  order    order[]
+}
+
+model order {
+  /// @zod.optional()
+  id          Int      @id(map: "order_pkey1") @default(autoincrement())
+  customer_id Int
+  customer    customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  image       image[]
+}
+
+model image {
+  id       Int   @id @default(autoincrement())
+  order_id Int
+  order    order @relation(fields: [order_id], references: [id], onDelete: Cascade)
+}
