@@ -1,8 +1,8 @@
 import 'dotenv/config';
 
 import express from 'express';
-import { createUncaughtErrorHandler } from '@/error/handleUncaughtErrors';
-import { createUncaughtExceptionHandler } from '@/exception/handleUncaughtExceptions';
+import { createErrorHandler } from '@/error/handleErrors';
+import { createExceptionHandler } from '@/exception/handleExceptions';
 import { customerRouter } from '@/domain/customer/customer.router';
 import { orderRouter } from '@/domain/order/order.router';
 import { logger } from './logger/logger';
@@ -16,5 +16,5 @@ app.use(express.json());
 app.use('/customers', customerRouter);
 app.use('/orders', orderRouter);
 
-app.use(createUncaughtExceptionHandler({ logger }));
-app.use(createUncaughtErrorHandler({ logger }));
+app.use(createExceptionHandler({ logger }));
+app.use(createErrorHandler({ logger }));

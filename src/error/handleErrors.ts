@@ -5,7 +5,7 @@ type Dependencies = {
   logger: Logger;
 };
 
-export const createUncaughtErrorHandler =
+export const createErrorHandler =
   ({ logger }: Dependencies): ErrorRequestHandler =>
   (err, req, res, _next) => {
     const { name, message, stack } = err;

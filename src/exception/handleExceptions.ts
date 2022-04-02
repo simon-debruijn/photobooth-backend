@@ -6,7 +6,7 @@ type Dependencies = {
   logger: Logger;
 };
 
-export const createUncaughtExceptionHandler =
+export const createExceptionHandler =
   ({ logger }: Dependencies): ErrorRequestHandler =>
   (err, req, res, next) => {
     if (err instanceof HttpError) {
