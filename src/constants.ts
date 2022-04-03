@@ -7,8 +7,9 @@ export const SALT_ROUNDS = (
 )!;
 export const LOG_DIRECTORY = process.env.LOG_DIRECTORY!;
 export const JWT_SECRET = process.env.JWT_SECRET!;
+export const HASH_ID_SALT = process.env.HASH_ID_SALT!;
 
-Object.entries({ DATABASE_URL, SALT_ROUNDS, LOG_DIRECTORY, JWT_SECRET }).forEach(
+Object.entries({ DATABASE_URL, SALT_ROUNDS, LOG_DIRECTORY, JWT_SECRET, HASH_ID_SALT }).forEach(
   ([variableName, variableValue]) => {
     if (!variableValue) {
       logger.warn(`Environment variable ${variableName} is undefined`);

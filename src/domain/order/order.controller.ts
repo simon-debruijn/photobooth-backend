@@ -3,8 +3,12 @@ import { prismaClient } from '../../database/prisma.client';
 import { RequestHandler } from 'express';
 import { orderModel } from '../../database/prisma/zod';
 import { NotFound, BadRequest } from 'http-errors';
+import Hashids from 'hashids';
+import { HASH_ID_SALT } from '@/constants';
 
-const orderService = createOrderService({ prismaClient });
+const hashids = new Hashids(HASH_ID_SALT, 8);
+
+const orderService = createOrderService({ prismaClient, hashids });
 
 export const getOrders: RequestHandler = async (req, res) => {
   const orders = await orderService.getOrders();
@@ -18,7 +22,7 @@ export const getOrders: RequestHandler = async (req, res) => {
 export const getOrderById: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
-  const order = await orderService.getOrderById(parseInt(id));
+  const order = await orderService.getOrderById(id);
 
   if (!order) {
     throw new NotFound('Order not found');
