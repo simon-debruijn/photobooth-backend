@@ -3,10 +3,10 @@ import { Prisma } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import { promisify } from 'util';
 
-export const sign = (customer: Prisma.customerUpdateInput): Promise<string> => {
+export const sign = (user: Prisma.userUpdateInput): Promise<string> => {
   return new Promise((resolve, reject) => {
     jwt.sign(
-      customer,
+      user,
       JWT_SECRET,
       {
         expiresIn: '1d',
@@ -26,7 +26,7 @@ export const verify = promisify<
   string,
   jwt.Secret,
   jwt.VerifyOptions | undefined,
-  Prisma.customerUpdateInput
+  Prisma.userUpdateInput
 >(jwt.verify);
 
 export const decode = (token: string): Promise<string> => {

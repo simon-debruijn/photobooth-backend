@@ -33,10 +33,10 @@ export const getOrderById: RequestHandler = async (req, res) => {
   });
 };
 
-export const getOrdersForCustomerId: RequestHandler = async (req, res) => {
-  const { customerId } = req.params;
+export const getOrdersForUserId: RequestHandler = async (req, res) => {
+  const { userId } = req.params;
 
-  const orders = await orderService.getOrdersForCustomerId(parseInt(customerId));
+  const orders = await orderService.getOrdersForUserId(parseInt(userId));
 
   res.send({
     data: orders,
@@ -53,7 +53,7 @@ export const addOrder: RequestHandler = async (req, res) => {
 
   const order = await orderService.addOrder(newOrder);
 
-  res.send({
+  res.status(201).send({
     data: order,
   });
 };

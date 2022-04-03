@@ -1,6 +1,6 @@
 import * as z from "zod"
 import { Decimal } from "decimal.js"
-import { Completecustomer, RelatedcustomerModel, Completeimage, RelatedimageModel } from "./index"
+import { Completeuser, RelateduserModel } from "./index"
 
 // Helper schema for Decimal fields
 z
@@ -18,16 +18,16 @@ z
 
 export const orderModel = z.object({
   id: z.number().int().optional(),
-  customer_id: z.number().int(),
+  user_id: z.number().int(),
   url_friendly_id: z.string().nullish(),
   title: z.string(),
   description: z.string().nullish(),
   price: z.number(),
+  image: z.string().array(),
 })
 
 export interface Completeorder extends z.infer<typeof orderModel> {
-  customer: Completecustomer
-  image: Completeimage[]
+  user: Completeuser
 }
 
 /**
@@ -36,6 +36,5 @@ export interface Completeorder extends z.infer<typeof orderModel> {
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
 export const RelatedorderModel: z.ZodSchema<Completeorder> = z.lazy(() => orderModel.extend({
-  customer: RelatedcustomerModel,
-  image: RelatedimageModel.array(),
+  user: RelateduserModel,
 }))

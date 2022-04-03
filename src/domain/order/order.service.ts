@@ -28,10 +28,10 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
     });
   };
 
-  const getOrdersForCustomerId = async (customerId: number) => {
+  const getOrdersForUserId = async (userId: number) => {
     return await prismaClient.order.findMany({
       where: {
-        customer_id: customerId,
+        user_id: userId,
       },
     });
   };
@@ -57,7 +57,7 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
   return {
     getOrders,
     getOrderById,
-    getOrdersForCustomerId,
+    getOrdersForUserId,
     addOrder,
   };
 };
