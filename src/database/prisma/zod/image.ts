@@ -1,13 +1,13 @@
-import * as z from "zod"
-import { Completeorder, RelatedorderModel } from "./index"
+import * as z from 'zod';
+import { Completeorder, RelatedorderModel } from './index';
 
 export const imageModel = z.object({
   id: z.number().int(),
   order_id: z.number().int(),
-})
+});
 
 export interface Completeimage extends z.infer<typeof imageModel> {
-  order: Completeorder
+  order: Completeorder;
 }
 
 /**
@@ -15,6 +15,8 @@ export interface Completeimage extends z.infer<typeof imageModel> {
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const RelatedimageModel: z.ZodSchema<Completeimage> = z.lazy(() => imageModel.extend({
-  order: RelatedorderModel,
-}))
+export const RelatedimageModel: z.ZodSchema<Completeimage> = z.lazy(() =>
+  imageModel.extend({
+    order: RelatedorderModel,
+  }),
+);

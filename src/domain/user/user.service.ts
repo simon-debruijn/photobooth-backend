@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { JWT_SECRET, SALT_ROUNDS } from '@/constants';
+import { SALT_ROUNDS } from '@/constants';
 import { BadRequest } from 'http-errors';
 import * as tokenProvider from '@/token/token.provider';
 
