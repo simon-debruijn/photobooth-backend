@@ -14,10 +14,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "security"],
+  "plugins": ["@typescript-eslint", "security", "unused-imports"],
   "rules": {
     "node/no-unsupported-features/es-syntax": "off",
     "node/no-missing-import": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error"
   }
 }
