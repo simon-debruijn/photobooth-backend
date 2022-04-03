@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { logger } from './logger/logger';
 
+export const PORT = process.env.PORT;
 export const DATABASE_URL = process.env.DATABASE_URL!;
 export const SALT_ROUNDS = (
   process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : undefined
