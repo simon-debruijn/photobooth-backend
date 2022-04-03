@@ -1,9 +1,28 @@
 import * as z from "zod"
+import { Decimal } from "decimal.js"
 import { Completecustomer, RelatedcustomerModel, Completeimage, RelatedimageModel } from "./index"
+
+// Helper schema for Decimal fields
+z
+  .instanceof(Decimal)
+  .or(z.string())
+  .or(z.number())
+  .refine((value) => {
+    try {
+      return new Decimal(value)
+    } catch (error) {
+      return false
+    }
+  })
+  .transform((value) => new Decimal(value))
 
 export const orderModel = z.object({
   id: z.number().int().optional(),
   customer_id: z.number().int(),
+  url_friendly_id: z.string().nullish(),
+  title: z.string(),
+  description: z.string().nullish(),
+  price: z.number(),
 })
 
 export interface Completeorder extends z.infer<typeof orderModel> {

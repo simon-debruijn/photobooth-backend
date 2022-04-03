@@ -5,11 +5,11 @@ generator client {
 generator zod {
   provider              = "zod-prisma"
   output                = "./zod"
-  modelCase             = "PascalCase"
   prismaJsonNullability = "true"
-  modelSuffix           = "Model"
-  relationModel         = "true"
   useDecimalJs          = "true"
+  relationModel         = "true"
+  modelSuffix           = "Model"
+  modelCase             = "PascalCase"
 }
 
 datasource db {
@@ -29,10 +29,14 @@ model customer {
 
 model order {
   /// @zod.optional()
-  id          Int      @id(map: "order_pkey1") @default(autoincrement())
-  customer_id Int
-  customer    customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
-  image       image[]
+  id              Int      @id(map: "order_pkey1") @default(autoincrement())
+  customer_id     Int
+  url_friendly_id String?
+  title           String
+  description     String?
+  price           Decimal  @db.Decimal(10, 2)
+  customer        customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  image           image[]
 }
 
 model image {
