@@ -6,10 +6,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child --watch src src/server.ts | pino-pretty",
-    "format": "prettier --write --ignore-path .gitignore .",
-    "format:check": "prettier --check --ignore-path .gitignore .",
-    "lint": "eslint --fix --ignore-path .gitignore .",
-    "lint:check": "eslint --ignore-path .gitignore .",
+    "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
+    "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
+    "lint": "eslint --fix --ignore-path .gitignore --ignore-path pnpm-lock.yaml .",
+    "lint:check": "eslint --ignore-path .gitignore --ignore-path pnpm-lock.yaml .",
     "types:check": "tsc --noEmit"
   },
   "prisma": {
