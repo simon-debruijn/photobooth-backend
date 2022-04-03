@@ -1,5 +1,4 @@
 /* eslint-disable node/no-unsupported-features/es-builtins */
-import { logger } from '@/logger/logger';
 import { Prisma, PrismaClient } from '@prisma/client';
 import Hashids from 'hashids';
 
