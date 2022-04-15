@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import Hashids from 'hashids';
-import { BadRequest,NotFound } from 'http-errors';
+import { BadRequest, NotFound } from 'http-errors';
 
 import { HASH_ID_SALT } from '@/constants';
 
