@@ -1,7 +1,8 @@
 import { Prisma, PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
-import { SALT_ROUNDS } from '@/constants';
 import { BadRequest } from 'http-errors';
+
+import { SALT_ROUNDS } from '@/constants';
 import * as tokenProvider from '@/token/token.provider';
 
 type Dependencies = {
