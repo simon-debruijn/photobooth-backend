@@ -5,11 +5,11 @@ generator client {
 generator zod {
   provider              = "zod-prisma"
   output                = "./zod"
-  prismaJsonNullability = "true"
   useDecimalJs          = "true"
   relationModel         = "true"
   modelSuffix           = "Model"
   modelCase             = "PascalCase"
+  prismaJsonNullability = "true"
 }
 
 datasource db {
@@ -35,6 +35,7 @@ model order {
   title           String
   description     String?
   price           Decimal  @db.Decimal(10, 2)
+  /// @zod.optional()
+  images          String[]
   user            user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  image           String[]
 }

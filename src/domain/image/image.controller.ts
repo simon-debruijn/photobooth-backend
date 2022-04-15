@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { BadRequest } from 'http-errors';
 
-export const addImage: RequestHandler = async (req, res) => {
+export const addImageToOrder: RequestHandler = async (req, res) => {
   const images = req.files;
 
   if (!images) {
@@ -9,7 +9,7 @@ export const addImage: RequestHandler = async (req, res) => {
   }
 
   const imageNames = (images as Express.Multer.File[]).map(
-    (image: Express.Multer.File) => image.originalname,
+    (image: Express.Multer.File) => image.filename,
   );
 
   res.status(201).send({
