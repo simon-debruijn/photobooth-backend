@@ -2,14 +2,19 @@ import fs from 'fs/promises';
 import multer from 'multer';
 import path from 'path';
 
+import { IMAGES_DIRECTORY } from '@/constants';
+
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     const orderId = req.params.orderId;
 
-    const directory = path.resolve(__dirname, '/../../../images/', orderId + '/');
+    const directory = IMAGES_DIRECTORY
+      ? path.join(IMAGES_DIRECTORY, orderId + '/')
+      : path.join(__dirname, '/../../../images/', orderId + '/');
+
     try {
       await fs.access(directory, 1);
-    } catch (e) {
+    } catch {
       // eslint-disable-next-line security/detect-non-literal-fs-filename
       await fs.mkdir(directory, { recursive: true });
     } finally {
@@ -19,7 +24,9 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const orderId = req.params.orderId;
     const timeStamp = Date.now();
-    const fileName = `image-${orderId}-${timeStamp}`;
+    const fileTypeParts = file.mimetype.split('/');
+    const fileExtension = fileTypeParts[fileTypeParts.length - 1];
+    const fileName = `image-${orderId}-${timeStamp}.${fileExtension}`;
     cb(null, fileName);
   },
 });
