@@ -17,6 +17,7 @@ specifiers:
   eslint: ^8.12.0
   eslint-plugin-node: ^11.1.0
   eslint-plugin-security: ^1.4.0
+  eslint-plugin-simple-import-sort: ^7.0.0
   eslint-plugin-unused-imports: ^2.0.0
   express: 5.0.0-beta.1
   hashids: ^2.2.10
@@ -60,6 +61,7 @@ devDependencies:
   eslint: 8.12.0
   eslint-plugin-node: 11.1.0_eslint@8.12.0
   eslint-plugin-security: 1.4.0
+  eslint-plugin-simple-import-sort: 7.0.0_eslint@8.12.0
   eslint-plugin-unused-imports: 2.0.0_8e87c07d54d9aab6e82c1fa70e6546f1
   pino-pretty: 7.6.0
   prettier: 2.6.2
@@ -931,6 +933,14 @@ packages:
     resolution: {integrity: sha512-xlS7P2PLMXeqfhyf3NpqbvbnW04kN8M9NtmhpR3XGyOvt/vNKS7XPXT5EDbwKW9vCjWH4PpfQvgD/+JgN0VJKA==}
     dependencies:
       safe-regex: 1.1.0
+    dev: true
+
+  /eslint-plugin-simple-import-sort/7.0.0_eslint@8.12.0:
+    resolution: {integrity: sha512-U3vEDB5zhYPNfxT5TYR7u01dboFZp+HNpnGhkDB2g/2E4wZ/g1Q9Ton8UwCLfRV9yAKyYqDh62oHOamvkFxsvw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.12.0
     dev: true
 
   /eslint-plugin-unused-imports/2.0.0_8e87c07d54d9aab6e82c1fa70e6546f1:
