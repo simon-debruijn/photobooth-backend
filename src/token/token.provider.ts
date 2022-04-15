@@ -1,7 +1,8 @@
-import { JWT_SECRET } from '@/constants';
 import { Prisma } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 import { promisify } from 'util';
+
+import { JWT_SECRET } from '@/constants';
 
 export const sign = (user: Prisma.userUpdateInput): Promise<string> => {
   return new Promise((resolve, reject) => {

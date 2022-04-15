@@ -1,8 +1,10 @@
-import { app } from './app';
 import http from 'http';
-import { connectToDatabase } from './database/prisma.client';
+
 import { logger } from '@/logger/logger';
+
+import { app } from './app';
 import { PORT } from './constants';
+import { connectToDatabase } from './database/prisma.client';
 
 const port = PORT || 8080;
 

@@ -1,5 +1,5 @@
-import { Logger } from 'pino';
 import { ErrorRequestHandler } from 'express';
+import { Logger } from 'pino';
 
 type Dependencies = {
   logger: Logger;

@@ -1,8 +1,9 @@
-import { createUserService } from './user.service';
-import { prismaClient } from '../../database/prisma.client';
 import { RequestHandler } from 'express';
+import { BadRequest, Conflict, NotFound } from 'http-errors';
+
+import { prismaClient } from '../../database/prisma.client';
 import { userModel } from '../../database/prisma/zod';
-import { NotFound, BadRequest, Conflict } from 'http-errors';
+import { createUserService } from './user.service';
 
 const userService = createUserService({ prismaClient });
 
