@@ -1,25 +1,23 @@
 import { ErrorRequestHandler } from 'express';
 import { HttpError } from 'http-errors';
-import { Logger } from 'pino';
 
-type Dependencies = {
-  logger: Logger;
-};
+import { withContext } from '@/context/withContext';
 
-export const createExceptionHandler =
-  ({ logger }: Dependencies): ErrorRequestHandler =>
-  (err, req, res, next) => {
-    if (err instanceof HttpError) {
-      const { status, name, message, stack } = err;
+export const handleExceptions = withContext<ErrorRequestHandler>(
+  ({ logger }) =>
+    (err, req, res, next) => {
+      if (err instanceof HttpError) {
+        const { status, name, message, stack } = err;
 
-      logger.debug({ status, name, message, stack });
+        logger.debug({ status, name, message, stack });
 
-      return res.status(status).send({
-        status,
-        name,
-        message,
-      });
-    }
+        return res.status(status).send({
+          status,
+          name,
+          message,
+        });
+      }
 
-    next(err);
-  };
+      next(err);
+    },
+);
