@@ -1,11 +1,13 @@
 {
   "name": "photobooth-backend",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child --watch src src/server.ts | pino-pretty",
+    "build": "tsc",
+    "start": "TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
     "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
     "lint": "eslint --fix --ignore-path .gitignore --ignore-path pnpm-lock.yaml .",
