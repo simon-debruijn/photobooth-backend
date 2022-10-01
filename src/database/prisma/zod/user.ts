@@ -1,5 +1,4 @@
 import * as z from 'zod';
-
 import { Completeorder, RelatedorderModel } from './index';
 
 export const userModel = z.object({

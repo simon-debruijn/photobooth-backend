@@ -54,11 +54,26 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
     return updatedOrder;
   };
 
+  const addImagesToOrder = async (images: string[], orderId: number) => {
+    const currentImages =
+      (await prismaClient.order.findUnique({ where: { id: orderId } }))?.images ?? [];
+
+    await prismaClient.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        images: [...currentImages, ...images],
+      },
+    });
+  };
+
   return {
     getOrders,
     getOrderById,
     getOrdersForUserId,
     addOrder,
+    addImagesToOrder,
   };
 };
 

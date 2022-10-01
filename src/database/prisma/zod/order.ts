@@ -1,6 +1,5 @@
-import { Decimal } from 'decimal.js';
 import * as z from 'zod';
-
+import { Decimal } from 'decimal.js';
 import { Completeuser, RelateduserModel } from './index';
 
 // Helper schema for Decimal fields

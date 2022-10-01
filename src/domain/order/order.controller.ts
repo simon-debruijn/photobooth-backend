@@ -10,7 +10,7 @@ import { createOrderService } from './order.service';
 
 const hashids = new Hashids(HASH_ID_SALT, 8);
 
-const orderService = createOrderService({ prismaClient, hashids });
+export const orderService = createOrderService({ prismaClient, hashids });
 
 export const getOrders: RequestHandler = async (req, res) => {
   const orders = await orderService.getOrders();
