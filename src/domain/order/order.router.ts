@@ -15,6 +15,8 @@ orderRouter.post('/', orderController.addOrder);
 orderRouter.get(
   '/:orderId/images',
   isUserAuthenticated,
+  // This expect error is needed because express doesn't like you extending the Request type
+  // @ts-expect-error
   isOrderIdFromUserIdMiddleware,
   imageController.getImagesForOrderId,
 );
