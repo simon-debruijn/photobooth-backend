@@ -21,4 +21,4 @@ app.use('/orders', orderRouter);
 app.use('/images', imageRouter);
 
 app.use(handleExceptions);
-app.use(createErrorHandler({ logger }));
+app.use(handleErrors);
