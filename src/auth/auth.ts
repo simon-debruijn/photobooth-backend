@@ -12,7 +12,7 @@ export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
     throw new Unauthorized('Invalid token');
   }
 
-  const { id } = await tokenProvider.decode(token);
+  const { id } = (await tokenProvider.decode(token)) ?? {};
 
   if (!id) {
     throw new Unauthorized('Invalid token');
