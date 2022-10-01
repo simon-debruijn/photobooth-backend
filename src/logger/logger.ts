@@ -12,6 +12,9 @@ const streams: StreamEntry[] = [
             mkdir: !process.env.LOG_DIRECTORY,
           }),
         },
+        {
+          stream: process.stdout,
+        },
       ]
     : []),
 ];
