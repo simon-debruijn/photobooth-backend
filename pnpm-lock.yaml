@@ -21,6 +21,7 @@ specifiers:
   eslint-plugin-unused-imports: ^2.0.0
   express: 5.0.0-beta.1
   hashids: ^2.2.10
+  helmet: ^6.0.0
   http-errors: ^2.0.0
   jsonwebtoken: ^8.5.1
   multer: ^1.4.4
@@ -42,6 +43,7 @@ dependencies:
   dotenv: 16.0.0
   express: 5.0.0-beta.1
   hashids: 2.2.10
+  helmet: 6.0.0
   http-errors: 2.0.0
   jsonwebtoken: 8.5.1
   multer: 1.4.4
@@ -1344,6 +1346,11 @@ packages:
 
   /hashids/2.2.10:
     resolution: {integrity: sha512-nXnYums7F8B5Y+GSThutLPlKMaamW1yjWNZVt0WModiJfdjaDZHnhYTWblS+h1OoBx3yjwiBwxldPP3nIbFSSA==}
+    dev: false
+
+  /helmet/6.0.0:
+    resolution: {integrity: sha512-FO9RpR1wNJepH/GbLPQVtkE2eESglXL641p7SdyoT4LngHFJcZheHMoyUcjCZF4qpuMMO1u5q6RK0l9Ux8JBcg==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /http-errors/1.8.1:
