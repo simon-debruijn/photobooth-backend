@@ -30,15 +30,13 @@ export const verify = promisify<
   Prisma.userUpdateInput
 >(jwt.verify);
 
-export const decode = (token: string): Promise<string> => {
+export const decode = (token: string): Promise<jwt.JwtPayload> => {
   return new Promise((resolve, reject) => {
-    new Promise((resolve) => {
-      try {
-        const decoded = jwt.decode(token);
-        resolve(decoded);
-      } catch (err) {
-        reject(err);
-      }
-    });
+    try {
+      const decoded = jwt.decode(token) as jwt.JwtPayload;
+      resolve(decoded);
+    } catch (err) {
+      reject(err);
+    }
   });
 };
