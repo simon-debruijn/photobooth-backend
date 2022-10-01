@@ -62,8 +62,6 @@ export const createUserService = ({ prismaClient }: Dependencies) => {
   const loginUser = async (userCredentials: Prisma.userCreateInput) => {
     const foundUser = await getUserByEmail(userCredentials.email);
 
-    console.log({ foundUser });
-
     if (!foundUser) {
       throw new BadRequest('Invalid login credentials');
     }
