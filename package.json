@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child --watch src src/server.ts | pino-pretty",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
     "start": "TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
     "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
