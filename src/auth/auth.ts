@@ -5,25 +5,25 @@ import * as tokenProvider from '../token/token.provider';
 
 export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
   try {
-      const tokenWithPrefix = req.headers['authorization'];
+    const tokenWithPrefix = req.headers['authorization'];
 
-      const token = tokenWithPrefix?.split('Bearer ')?.[1];
+    const token = tokenWithPrefix?.split('Bearer ')?.[1];
 
-      if (!token) {
-          throw new Error();
-      }
+    if (!token) {
+      throw new Error();
+    }
 
-      const { id } = (await tokenProvider.verify(token)) ?? {};
+    const { id } = (await tokenProvider.verify(token)) ?? {};
 
-      if (!id) {
-          throw new Error();
-      }
+    if (!id) {
+      throw new Error();
+    }
 
-      // @ts-expect-error
-      req.userId = id;
+    // @ts-expect-error
+    req.userId = id;
 
-      next();
+    next();
   } catch {
-      next(new Unauthorized('Invalid token'))
+    next(new Unauthorized('Invalid token'));
   }
 };

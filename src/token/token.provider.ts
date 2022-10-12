@@ -24,15 +24,15 @@ export const sign = (user: Prisma.userUpdateInput): Promise<string> => {
 };
 
 export const verify = (token: string): Promise<jwt.JwtPayload> => {
-    return new Promise((resolve, reject) => {
-        try {
-            const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
-            resolve(decoded);
-        } catch (err) {
-            reject(err);
-        }
-    });
-}
+  return new Promise((resolve, reject) => {
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
+      resolve(decoded);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
 
 export const decode = (token: string): Promise<jwt.JwtPayload> => {
   return new Promise((resolve, reject) => {
