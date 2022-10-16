@@ -30,7 +30,9 @@ export const addImageToOrder: RequestHandler = async (req, res) => {
 export const getImagesForOrderId: RequestHandler = async (req, res) => {
   const orderId = req.params.orderId;
 
-  const images = (await imageService.getImagesForOrderId(orderId)) ?? [];
+  const images =
+    (await imageService.getImagesForOrderId(orderId, `${req.protocol}://${req.headers.host}`)) ??
+    [];
 
   res.send({
     count: images.length,

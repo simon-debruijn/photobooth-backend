@@ -1,6 +1,7 @@
 /* eslint-disable node/no-unsupported-features/es-builtins */
 import { Prisma, PrismaClient } from '@prisma/client';
 import Hashids from 'hashids';
+import { BadRequest } from 'http-errors';
 
 type Dependencies = {
   prismaClient: PrismaClient;
@@ -55,8 +56,13 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
   };
 
   const addImagesToOrder = async (images: string[], orderId: number) => {
-    const currentImages =
-      (await prismaClient.order.findUnique({ where: { id: orderId } }))?.images ?? [];
+    const order = await prismaClient.order.findUnique({ where: { id: orderId } });
+
+    if (!order) {
+      throw new BadRequest('Order does not exist');
+    }
+
+    const currentImages = order?.images ?? [];
 
     await prismaClient.order.update({
       where: {

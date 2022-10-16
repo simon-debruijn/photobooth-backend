@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
+import {} from 'express';
 import { Unauthorized } from 'http-errors';
 
 import { prismaClient } from '../../database/prisma.client';
 
 export const isOrderIdFromUserIdMiddleware = async (
-  req: Request & { userId: number },
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {
+  // @ts-expect-error
   const userId = req.userId;
   const orderId = req.params.orderId;
 

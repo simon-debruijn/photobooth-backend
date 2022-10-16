@@ -1,19 +1,22 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import path from 'path';
 
 import { IMAGES_DIRECTORY } from '@/constants';
 
 export const createImageService = () => {
-  const getImagesForOrderId = async (orderId: string) => {
+  const getImagesForOrderId = async (orderId: string, url: string) => {
     const directory = IMAGES_DIRECTORY
-      ? path.join(IMAGES_DIRECTORY, orderId + '/')
-      : path.join(__dirname, '/../../../images/', orderId + '/');
+      ? path.join(IMAGES_DIRECTORY, orderId + './')
+      : path.join(__dirname, './../../../images/', orderId + '/');
 
-    const imageNamesForOrder = await fs.readdir(directory);
+    if (!fs.existsSync(directory)) {
+      return [];
+    }
 
-    const imageUrls = imageNamesForOrder.map(
-      (name) => `http://localhost:8080/images/${orderId}/${name}`,
-    );
+    // eslint-disable-next-line security/detect-non-literal-fs-filename, node/no-unsupported-features/node-builtins
+    const imageNamesForOrder = await fs.promises.readdir(directory);
+
+    const imageUrls = imageNamesForOrder.map((name) => `${url}/images/${orderId}/${name}`);
 
     return imageUrls;
   };

@@ -36,7 +36,18 @@ export const createUserService = ({ prismaClient }: Dependencies) => {
   };
 
   const addTokenToUserById = async (id: number, previousTokens: string[], token: string) => {
-    const newTokens = [...previousTokens, token];
+    const willDecodeTokens = previousTokens.map((token) => tokenProvider.decode(token));
+
+    const decodedTokens = await Promise.all(willDecodeTokens);
+
+    const validTokens = previousTokens.filter((token, index) => {
+      // eslint-disable-next-line security/detect-object-injection
+      const expiresAt = decodedTokens[index].exp ?? -Infinity;
+      const now = Date.now() / 1000;
+      return now < expiresAt;
+    });
+
+    const newTokens = [...validTokens, token];
 
     return await prismaClient.user.update({
       where: {

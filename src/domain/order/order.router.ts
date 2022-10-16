@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { isUserAuthenticated } from '@/auth/auth';
+import { isUserAuthenticatedMiddleware } from '@/auth/auth.middleware';
 import { uploadImagesMiddleware } from '@/domain/image/image.middleware';
 
 import * as imageController from '../image/image.controller';
@@ -14,9 +14,7 @@ orderRouter.get('/:id', orderController.getOrderById);
 orderRouter.post('/', orderController.addOrder);
 orderRouter.get(
   '/:orderId/images',
-  isUserAuthenticated,
-  // This expect error is needed because express doesn't like you extending the Request type
-  // @ts-expect-error
+  isUserAuthenticatedMiddleware,
   isOrderIdFromUserIdMiddleware,
   imageController.getImagesForOrderId,
 );
