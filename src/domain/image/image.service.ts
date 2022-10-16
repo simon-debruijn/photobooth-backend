@@ -9,6 +9,7 @@ export const createImageService = () => {
       ? path.join(IMAGES_DIRECTORY, orderId + './')
       : path.join(__dirname, './../../../images/', orderId + '/');
 
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     if (!fs.existsSync(directory)) {
       return [];
     }

@@ -14,7 +14,7 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
   };
 
   const getOrderById = async (id: string) => {
-    let decodedId: BigInt;
+    let decodedId: bigint;
 
     if (Number.isNaN(parseInt(id))) {
       decodedId = BigInt(hashids.decode(id)[0]);
