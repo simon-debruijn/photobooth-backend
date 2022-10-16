@@ -3,7 +3,7 @@ import { Unauthorized } from 'http-errors';
 
 import * as tokenProvider from '../token/token.provider';
 
-export const isUserAuthenticatedMiddleware: RequestHandler = async (req, res, next) => {
+export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
   try {
     const tokenWithPrefix = req.headers['authorization'];
 

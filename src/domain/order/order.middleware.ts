@@ -4,11 +4,7 @@ import { Unauthorized } from 'http-errors';
 
 import { prismaClient } from '../../database/prisma.client';
 
-export const isOrderIdFromUserIdMiddleware = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+export const isOrderIdFromUserId = async (req: Request, res: Response, next: NextFunction) => {
   // @ts-expect-error
   const userId = req.userId;
   const orderId = req.params.orderId;

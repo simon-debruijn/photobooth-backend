@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import { isUserAuthenticatedMiddleware } from '@/auth/auth.middleware';
-import { uploadImagesMiddleware } from '@/domain/image/image.middleware';
+import { isUserAuthenticated } from '@/auth/auth.middleware';
+import { uploadImages } from '@/domain/image/image.middleware';
 
 import * as imageController from '../image/image.controller';
 import * as orderController from './order.controller';
-import { isOrderIdFromUserIdMiddleware } from './order.middleware';
+import { isOrderIdFromUserId } from './order.middleware';
 
 export const orderRouter = Router();
 
@@ -14,8 +14,8 @@ orderRouter.get('/:id', orderController.getOrderById);
 orderRouter.post('/', orderController.addOrder);
 orderRouter.get(
   '/:orderId/images',
-  isUserAuthenticatedMiddleware,
-  isOrderIdFromUserIdMiddleware,
+  isUserAuthenticated,
+  isOrderIdFromUserId,
   imageController.getImagesForOrderId,
 );
-orderRouter.post('/:orderId/images', uploadImagesMiddleware, imageController.addImageToOrder);
+orderRouter.post('/:orderId/images', uploadImages, imageController.addImageToOrder);
