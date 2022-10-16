@@ -10,8 +10,8 @@
     "start": "TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
     "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
-    "lint": "eslint --fix --ignore-path .gitignore --ignore-path pnpm-lock.yaml .",
-    "lint:check": "eslint --ignore-path .gitignore --ignore-path pnpm-lock.yaml .",
+    "lint": "eslint --fix --ignore-path .gitignore --ignore-path pnpm-lock.yaml ./src",
+    "lint:check": "eslint --ignore-path .gitignore --ignore-path pnpm-lock.yaml ./src",
     "types:check": "tsc --noEmit"
   },
   "prisma": {
@@ -40,18 +40,18 @@
     "@types/http-errors": "^1.8.2",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/multer": "^1.4.7",
-    "@typescript-eslint/eslint-plugin": "^5.17.0",
-    "@typescript-eslint/parser": "^5.17.0",
-    "eslint": "^8.12.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-security": "^1.5.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "pino-pretty": "^7.6.1",
-    "prettier": "^2.6.1",
+    "prettier": "^2.7.1",
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.14.1",
-    "typescript": "^4.6.3",
+    "typescript": "^4.8.4",
     "zod-prisma": "^0.5.4"
   }
 }
