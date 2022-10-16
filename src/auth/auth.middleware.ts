@@ -3,17 +3,20 @@ import { Unauthorized } from 'http-errors';
 
 import * as tokenProvider from '../token/token.provider';
 
-export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
+export const isUserAuthenticatedMiddleware: RequestHandler = async (req, res, next) => {
   try {
     const tokenWithPrefix = req.headers['authorization'];
 
     const token = tokenWithPrefix?.split('Bearer ')?.[1];
+    const tokenInQuery = req.query.token as string;
 
-    if (!token) {
+    if (!token && !tokenInQuery) {
       throw new Error();
     }
 
-    const { id } = (await tokenProvider.verify(token)) ?? {};
+    const jwt = token || tokenInQuery;
+
+    const { id } = (await tokenProvider.verify(jwt)) ?? {};
 
     if (!id) {
       throw new Error();
