@@ -18,12 +18,8 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-app.use(
-  '/images/:orderId',
-  isUserAuthenticatedMiddleware,
-  isOrderIdFromUserIdMiddleware,
-  express.static('images'),
-);
+app.use('/images/:orderId', isUserAuthenticatedMiddleware, isOrderIdFromUserIdMiddleware);
+app.use('/images', express.static('images'));
 
 app.use('/users', userRouter);
 app.use('/orders', orderRouter);
