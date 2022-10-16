@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 
-import { JWT_SECRET } from '@/constants';
+import { JWT_EXPIRES_IN, JWT_SECRET } from '@/constants';
 
 export const sign = (user: Prisma.userUpdateInput): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -9,7 +9,7 @@ export const sign = (user: Prisma.userUpdateInput): Promise<string> => {
       user,
       JWT_SECRET,
       {
-        expiresIn: '1m',
+        expiresIn: JWT_EXPIRES_IN || '1d',
         algorithm: 'HS256',
       },
       (err, encoded) => {

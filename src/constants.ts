@@ -9,6 +9,7 @@ export const SALT_ROUNDS = (
 export const LOG_DIRECTORY = process.env.LOG_DIRECTORY!;
 export const IMAGES_DIRECTORY = process.env.IMAGES_DIRECTORY;
 export const JWT_SECRET = process.env.JWT_SECRET!;
+export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN!;
 export const HASH_ID_SALT = process.env.HASH_ID_SALT!;
 
 Object.entries({
@@ -17,6 +18,7 @@ Object.entries({
   LOG_DIRECTORY,
   IMAGES_DIRECTORY,
   JWT_SECRET,
+  JWT_EXPIRES_IN,
   HASH_ID_SALT,
 }).forEach(([variableName, variableValue]) => {
   if (!variableValue) {
