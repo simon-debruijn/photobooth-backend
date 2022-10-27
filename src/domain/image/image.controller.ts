@@ -19,11 +19,15 @@ export const addImageToOrder: RequestHandler = async (req, res) => {
     (image: Express.Multer.File) => image.filename,
   );
 
-  await orderService.addImagesToOrder(imageNames, parseInt(orderId));
+  await orderService.addImagesToOrder(imageNames, orderId);
+
+  const url = `${req.protocol}://${req.headers.host}`;
+
+  const imageUrls = imageNames.map((name) => `${url}/images/${orderId}/${name}`);
 
   res.status(201).send({
     message: 'Images were successfully added',
-    image_names: imageNames,
+    images: imageUrls,
   });
 };
 

@@ -9,18 +9,23 @@ type Dependencies = {
 };
 
 export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
+  const getDecodedId = (orderId: string | number) => {
+    let decodedId: bigint;
+
+    if (typeof orderId !== 'number') {
+      decodedId = BigInt(hashids.decode(orderId)[0]);
+    } else {
+      decodedId = BigInt(orderId);
+    }
+    return decodedId;
+  };
+
   const getOrders = async () => {
     return await prismaClient.order.findMany();
   };
 
   const getOrderById = async (id: string) => {
-    let decodedId: bigint;
-
-    if (Number.isNaN(parseInt(id))) {
-      decodedId = BigInt(hashids.decode(id)[0]);
-    } else {
-      decodedId = BigInt(id);
-    }
+    const decodedId = getDecodedId(id);
 
     return await prismaClient.order.findUnique({
       where: {
@@ -55,8 +60,12 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
     return updatedOrder;
   };
 
-  const addImagesToOrder = async (images: string[], orderId: number) => {
-    const order = await prismaClient.order.findUnique({ where: { id: orderId } });
+  const addImagesToOrder = async (images: string[], orderId: string) => {
+    const decodedId: bigint = getDecodedId(orderId);
+
+    const order = await prismaClient.order.findUnique({
+      where: { id: parseInt(decodedId.toString()) },
+    });
 
     if (!order) {
       throw new BadRequest('Order does not exist');
@@ -66,7 +75,7 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
 
     await prismaClient.order.update({
       where: {
-        id: orderId,
+        id: parseInt(decodedId.toString()),
       },
       data: {
         images: [...currentImages, ...images],
