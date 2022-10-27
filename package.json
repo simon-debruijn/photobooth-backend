@@ -5,8 +5,9 @@
   "type": "commonjs",
   "license": "MIT",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child --watch src src/server.ts | pino-pretty",
-    "build": "prisma generate && tsc",
+    "build": "tsc",
     "start": "TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
     "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
@@ -18,7 +19,7 @@
     "schema": "src/database/prisma/schema.prisma"
   },
   "dependencies": {
-    "@prisma/client": "4.4.0",
+    "@prisma/client": "4.5.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "decimal.js": "^10.4.2",
