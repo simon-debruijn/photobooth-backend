@@ -1,20 +1,30 @@
 import { ErrorRequestHandler } from 'express';
 import { HttpError } from 'http-errors';
 
-import { logger } from '@/logger/logger';
+import { Logger, logger } from '@/logger/logger';
 
-export const handleExceptions: ErrorRequestHandler = (err, req, res, next) => {
-  if (err instanceof HttpError) {
-    const { status, name, message, stack } = err;
+// : ErrorRequestHandler
 
-    logger.debug({ status, name, message, stack });
-
-    return res.status(status).send({
-      status,
-      name,
-      message,
-    });
-  }
-
-  next(err);
+type Dependencies = {
+  logger: Logger;
 };
+
+export const createExceptionHandler: (dependencies: Dependencies) => ErrorRequestHandler =
+  ({ logger }) =>
+  (err, req, res, next) => {
+    if (err instanceof HttpError) {
+      const { status, name, message, stack } = err;
+
+      logger.debug({ status, name, message, stack });
+
+      return res.status(status).send({
+        status,
+        name,
+        message,
+      });
+    }
+
+    next(err);
+  };
+
+export const handleExceptions = createExceptionHandler({ logger });

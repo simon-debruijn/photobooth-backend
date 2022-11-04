@@ -24,3 +24,5 @@ const options: LoggerOptions = {
 };
 
 export const logger = pino(options, pino.multistream(streams));
+
+export type Logger = pino.Logger;

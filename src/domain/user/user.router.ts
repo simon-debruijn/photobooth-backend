@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import * as orderController from '../order/order.controller';
-import * as userController from './user.controller';
+import { orderController } from '../order/order.controller';
+import { userController } from './user.controller';
 
 export const userRouter = Router();
 

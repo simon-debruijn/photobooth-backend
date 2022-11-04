@@ -26,3 +26,5 @@ export const createImageService = () => {
     getImagesForOrderId,
   };
 };
+
+export const imageService = createImageService();

@@ -3,7 +3,8 @@ import bcrypt from 'bcrypt';
 import { BadRequest } from 'http-errors';
 
 import { SALT_ROUNDS } from '@/constants';
-import * as tokenProvider from '@/token/token.provider';
+import { prismaClient } from '@/database/prisma.client';
+import { tokenProvider } from '@/token/token.provider';
 
 type Dependencies = {
   prismaClient: PrismaClient;
@@ -108,4 +109,6 @@ export const createUserService = ({ prismaClient }: Dependencies) => {
   };
 };
 
-export type UserService = ReturnType<typeof createUserService>;
+export const userService = createUserService({ prismaClient });
+
+export type UserService = typeof userService;

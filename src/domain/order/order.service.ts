@@ -1,7 +1,10 @@
 /* eslint-disable node/no-unsupported-features/es-builtins */
 import { Prisma, PrismaClient } from '@prisma/client';
-import Hashids from 'hashids';
+import type Hashids from 'hashids';
 import { BadRequest } from 'http-errors';
+
+import { prismaClient } from '../../database/prisma.client';
+import { hashids } from '../../hashid/hashid';
 
 type Dependencies = {
   prismaClient: PrismaClient;
@@ -89,7 +92,10 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
     getOrdersForUserId,
     addOrder,
     addImagesToOrder,
+    getDecodedId,
   };
 };
+
+export const orderService = createOrderService({ prismaClient, hashids });
 
 export type OrderService = ReturnType<typeof createOrderService>;

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { Unauthorized } from 'http-errors';
 
-import * as tokenProvider from '../token/token.provider';
+import { tokenProvider } from '../token/token.provider';
 
 export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
   try {
@@ -11,7 +11,7 @@ export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
     const tokenInQuery = req.query.token as string;
 
     if (!token && !tokenInQuery) {
-      throw new Error();
+      new Unauthorized('Invalid token');
     }
 
     const jwt = token || tokenInQuery;
@@ -19,7 +19,7 @@ export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
     const { id } = (await tokenProvider.verify(jwt)) ?? {};
 
     if (!id) {
-      throw new Error();
+      new Unauthorized('Invalid token');
     }
 
     // @ts-expect-error

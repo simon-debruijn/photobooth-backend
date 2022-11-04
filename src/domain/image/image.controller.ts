@@ -1,45 +1,51 @@
 import { RequestHandler } from 'express';
 import { BadRequest } from 'http-errors';
 
-import { createImageService } from '@/domain/image/image.service';
+import { imageService } from '../image/image.service';
+import { orderService } from '../order/order.service';
 
-import { orderService } from '../order/order.controller';
+export const createImageController = () => {
+  const addImageToOrder: RequestHandler = async (req, res) => {
+    const images = req.files;
+    const orderId = req.params.orderId;
 
-const imageService = createImageService();
+    if (!images) {
+      throw new BadRequest('Image files where not passed properly');
+    }
 
-export const addImageToOrder: RequestHandler = async (req, res) => {
-  const images = req.files;
-  const orderId = req.params.orderId;
+    const imageNames = (images as Express.Multer.File[]).map(
+      (image: Express.Multer.File) => image.filename,
+    );
 
-  if (!images) {
-    throw new BadRequest('Image files where not passed properly');
-  }
+    await orderService.addImagesToOrder(imageNames, orderId);
 
-  const imageNames = (images as Express.Multer.File[]).map(
-    (image: Express.Multer.File) => image.filename,
-  );
+    const url = `${req.protocol}://${req.headers.host}`;
 
-  await orderService.addImagesToOrder(imageNames, orderId);
+    const imageUrls = imageNames.map((name) => `${url}/images/${orderId}/${name}`);
 
-  const url = `${req.protocol}://${req.headers.host}`;
+    res.status(201).send({
+      message: 'Images were successfully added',
+      images: imageUrls,
+    });
+  };
 
-  const imageUrls = imageNames.map((name) => `${url}/images/${orderId}/${name}`);
+  const getImagesForOrderId: RequestHandler = async (req, res) => {
+    const orderId = req.params.orderId;
 
-  res.status(201).send({
-    message: 'Images were successfully added',
-    images: imageUrls,
-  });
+    const images =
+      (await imageService.getImagesForOrderId(orderId, `${req.protocol}://${req.headers.host}`)) ??
+      [];
+
+    res.send({
+      count: images.length,
+      data: images,
+    });
+  };
+
+  return {
+    addImageToOrder,
+    getImagesForOrderId,
+  };
 };
 
-export const getImagesForOrderId: RequestHandler = async (req, res) => {
-  const orderId = req.params.orderId;
-
-  const images =
-    (await imageService.getImagesForOrderId(orderId, `${req.protocol}://${req.headers.host}`)) ??
-    [];
-
-  res.send({
-    count: images.length,
-    data: images,
-  });
-};
+export const imageController = createImageController();
