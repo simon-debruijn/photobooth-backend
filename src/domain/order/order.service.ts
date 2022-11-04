@@ -11,7 +11,7 @@ type Dependencies = {
   hashids: Hashids;
 };
 
-export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
+const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
   const getDecodedId = (orderId: string | number) => {
     let decodedId: bigint;
 
@@ -94,6 +94,10 @@ export const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
     addImagesToOrder,
     getDecodedId,
   };
+};
+
+export const __TESTS__ = {
+  createOrderService,
 };
 
 export const orderService = createOrderService({ prismaClient, hashids });

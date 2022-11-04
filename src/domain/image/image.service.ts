@@ -3,7 +3,7 @@ import path from 'path';
 
 import { IMAGES_DIRECTORY } from '@/constants';
 
-export const createImageService = () => {
+const createImageService = () => {
   const getImagesForOrderId = async (orderId: string, url: string) => {
     const directory = IMAGES_DIRECTORY
       ? path.join(IMAGES_DIRECTORY, orderId + './')
@@ -25,6 +25,10 @@ export const createImageService = () => {
   return {
     getImagesForOrderId,
   };
+};
+
+export const __TESTS__ = {
+  createImageService,
 };
 
 export const imageService = createImageService();

@@ -6,7 +6,7 @@ import { UserService, userService } from '@/domain/user/user.service';
 
 type Dependencies = { userService: UserService };
 
-export const createUserController = ({ userService }: Dependencies) => {
+const createUserController = ({ userService }: Dependencies) => {
   const getUsers: RequestHandler = async (req, res) => {
     const users = await userService.getUsers();
 
@@ -70,6 +70,10 @@ export const createUserController = ({ userService }: Dependencies) => {
     registerUser,
     loginUser,
   };
+};
+
+export const __TESTS__ = {
+  createUserController,
 };
 
 export const userController = createUserController({ userService });

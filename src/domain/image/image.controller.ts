@@ -4,7 +4,7 @@ import { BadRequest } from 'http-errors';
 import { imageService } from '../image/image.service';
 import { orderService } from '../order/order.service';
 
-export const createImageController = () => {
+const createImageController = () => {
   const addImageToOrder: RequestHandler = async (req, res) => {
     const images = req.files;
     const orderId = req.params.orderId;
@@ -46,6 +46,10 @@ export const createImageController = () => {
     addImageToOrder,
     getImagesForOrderId,
   };
+};
+
+export const __TESTS__ = {
+  createImageController,
 };
 
 export const imageController = createImageController();

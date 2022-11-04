@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 
 import { JWT_EXPIRES_IN, JWT_SECRET } from '@/constants';
 
-export const createTokenProvider = () => {
+const createTokenProvider = () => {
   const sign = (user: Prisma.userUpdateInput): Promise<string> => {
     return new Promise((resolve, reject) => {
       jwt.sign(
@@ -50,6 +50,10 @@ export const createTokenProvider = () => {
     verify,
     decode,
   };
+};
+
+export const __TESTS__ = {
+  createTokenProvider,
 };
 
 export const tokenProvider = createTokenProvider();

@@ -9,7 +9,7 @@ type Dependencies = {
   orderService: OrderService;
 };
 
-export const createOrderController = ({ orderService }: Dependencies) => {
+const createOrderController = ({ orderService }: Dependencies) => {
   const getOrders: RequestHandler = async (req, res) => {
     const orders = await orderService.getOrders();
 
@@ -64,6 +64,10 @@ export const createOrderController = ({ orderService }: Dependencies) => {
     getOrdersForUserId,
     addOrder,
   };
+};
+
+export const __TESTS__ = {
+  createOrderController,
 };
 
 export const orderController = createOrderController({ orderService });

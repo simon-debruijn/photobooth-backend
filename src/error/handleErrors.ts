@@ -6,7 +6,7 @@ type Dependencies = {
   logger: Logger;
 };
 
-export const createErrorHandler: (dependencies: Dependencies) => ErrorRequestHandler =
+const createErrorHandler: (dependencies: Dependencies) => ErrorRequestHandler =
   ({ logger }) =>
   (err, req, res, _next) => {
     const { name, message, stack } = err;
@@ -15,5 +15,9 @@ export const createErrorHandler: (dependencies: Dependencies) => ErrorRequestHan
 
     res.status(500).send('Internal Server Error');
   };
+
+export const __TESTS__ = {
+  createErrorHandler,
+};
 
 export const handleErrors = createErrorHandler({ logger });

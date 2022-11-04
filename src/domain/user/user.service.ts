@@ -12,7 +12,7 @@ type Dependencies = {
 
 const userWithoutPassword = { email: true, id: true };
 
-export const createUserService = ({ prismaClient }: Dependencies) => {
+const createUserService = ({ prismaClient }: Dependencies) => {
   const getUsers = async () => {
     return await prismaClient.user.findMany({
       select: { email: true, id: true },
@@ -107,6 +107,10 @@ export const createUserService = ({ prismaClient }: Dependencies) => {
     getUserById,
     getUserByEmail,
   };
+};
+
+export const __TESTS__ = {
+  createUserService,
 };
 
 export const userService = createUserService({ prismaClient });

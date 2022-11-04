@@ -9,7 +9,7 @@ type Dependencies = {
   logger: Logger;
 };
 
-export const createExceptionHandler: (dependencies: Dependencies) => ErrorRequestHandler =
+const createExceptionHandler: (dependencies: Dependencies) => ErrorRequestHandler =
   ({ logger }) =>
   (err, req, res, next) => {
     if (err instanceof HttpError) {
@@ -26,5 +26,9 @@ export const createExceptionHandler: (dependencies: Dependencies) => ErrorReques
 
     next(err);
   };
+
+export const __TESTS__ = {
+  createExceptionHandler,
+};
 
 export const handleExceptions = createExceptionHandler({ logger });
