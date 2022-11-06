@@ -2,21 +2,17 @@ import { RequestHandler } from 'express';
 import { Unauthorized } from 'http-errors';
 
 import { tokenProvider } from '../token/token.provider';
+import { getTokenFromRequest } from './getJwtFromRequest';
 
 export const isUserAuthenticated: RequestHandler = async (req, res, next) => {
   try {
-    const tokenWithPrefix = req.headers['authorization'];
+    const token = getTokenFromRequest(req);
 
-    const token = tokenWithPrefix?.split('Bearer ')?.[1];
-    const tokenInQuery = req.query.token as string;
-
-    if (!token && !tokenInQuery) {
-      new Unauthorized('Invalid token');
+    if (!token) {
+      throw new Unauthorized('Invalid token');
     }
 
-    const jwt = token || tokenInQuery;
-
-    const { id } = (await tokenProvider.verify(jwt)) ?? {};
+    const { id } = (await tokenProvider.verify(token)) ?? {};
 
     if (!id) {
       new Unauthorized('Invalid token');
