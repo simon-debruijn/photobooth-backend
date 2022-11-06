@@ -1,6 +1,6 @@
 -- DropTable
-DROP TABLE "user" IF EXISTS;
-DROP TABLE "order" IF EXISTS;
+DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS "order";
 
 -- CreateTable
 CREATE TABLE "user" (
