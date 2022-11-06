@@ -23,7 +23,9 @@ model user {
   email    String
   password String
   order    order[]
+  /// @zod.optional()
   createdAt DateTime @default(now())
+  /// @zod.optional()
   updatedAt DateTime @updatedAt
 }
 
@@ -38,6 +40,8 @@ model order {
   /// @zod.optional()
   images          String[]
   user            user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  /// @zod.optional()
   createdAt DateTime @default(now())
+  /// @zod.optional()
   updatedAt DateTime @updatedAt
 }
