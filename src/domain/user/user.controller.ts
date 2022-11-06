@@ -100,4 +100,4 @@ export const __TESTS__ = {
   createUserController,
 };
 
-export const userController = createUserController({ userService, logger });
+export const userController = createUserController({ userService });
