@@ -24,7 +24,7 @@ const createOrderService = ({ prismaClient, hashids }: Dependencies) => {
   };
 
   const getOrders = async () => {
-    return await prismaClient.order.findMany();
+    return await prismaClient.order.findMany({ select: { id: false, user_id: false } });
   };
 
   const getOrderById = async (id: string) => {
