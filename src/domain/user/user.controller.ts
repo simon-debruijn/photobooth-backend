@@ -1,7 +1,9 @@
 import { RequestHandler } from 'express';
-import { BadRequest, Conflict, NotFound } from 'http-errors';
+import { BadRequest, Conflict, NotFound, Unauthorized } from 'http-errors';
 
+import { getTokenFromRequest } from '@/auth/getJwtFromRequest';
 import { UserService, userService } from '@/domain/user/user.service';
+import { tokenProvider } from '@/token/token.provider';
 
 import { userModel } from '../../database/prisma/zod';
 
@@ -19,6 +21,26 @@ const createUserController = ({ userService }: Dependencies) => {
 
   const getUserById: RequestHandler = async (req, res) => {
     const { id } = req.params;
+
+    const user = await userService.getUserById(parseInt(id));
+
+    if (!user) {
+      throw new NotFound('User not found');
+    }
+
+    res.send({
+      data: user,
+    });
+  };
+
+  const getMe: RequestHandler = async (req, res) => {
+    const token = getTokenFromRequest(req);
+
+    if (!token) {
+      throw new Unauthorized('Invalid token');
+    }
+
+    const { id } = (await tokenProvider.verify(token)) ?? {};
 
     const user = await userService.getUserById(parseInt(id));
 
@@ -68,6 +90,7 @@ const createUserController = ({ userService }: Dependencies) => {
   return {
     getUsers,
     getUserById,
+    getMe,
     registerUser,
     loginUser,
   };
@@ -77,4 +100,4 @@ export const __TESTS__ = {
   createUserController,
 };
 
-export const userController = createUserController({ userService });
+export const userController = createUserController({ userService, logger });
