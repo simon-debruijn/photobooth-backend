@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { Unauthorized } from 'http-errors';
 
-import { prismaClient } from '../../database/prisma.client';
 import { orderService } from '@/domain/order/order.service';
+
+import { prismaClient } from '../../database/prisma.client';
 
 export const isOrderIdFromUserId = async (req: Request, res: Response, next: NextFunction) => {
   // @ts-expect-error

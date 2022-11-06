@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 
-import { logger, Logger } from '@/logger/logger';
+import { Logger,logger } from '@/logger/logger';
 
 type Dependencies = {
   logger: Logger;

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { BadRequest, NotFound } from 'http-errors';
 
-import { orderService, OrderService } from '@/domain/order/order.service';
+import { OrderService,orderService } from '@/domain/order/order.service';
 
 import { orderModel } from '../../database/prisma/zod';
 

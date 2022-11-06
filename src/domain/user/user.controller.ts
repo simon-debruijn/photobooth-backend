@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express';
 import { BadRequest, Conflict, NotFound } from 'http-errors';
 
-import { userModel } from '../../database/prisma/zod';
 import { UserService, userService } from '@/domain/user/user.service';
+
+import { userModel } from '../../database/prisma/zod';
 
 type Dependencies = { userService: UserService };
 
