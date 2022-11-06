@@ -36,30 +36,6 @@ const createUserService = ({ prismaClient }: Dependencies) => {
     });
   };
 
-  const addTokenToUserById = async (id: number, previousTokens: string[], token: string) => {
-    const willDecodeTokens = previousTokens.map((token) => tokenProvider.decode(token));
-
-    const decodedTokens = await Promise.all(willDecodeTokens);
-
-    const validTokens = previousTokens.filter((token, index) => {
-      // eslint-disable-next-line security/detect-object-injection
-      const expiresAt = decodedTokens[index].exp ?? -Infinity;
-      const now = Date.now() / 1000;
-      return now < expiresAt;
-    });
-
-    const newTokens = [...validTokens, token];
-
-    return await prismaClient.user.update({
-      where: {
-        id,
-      },
-      data: {
-        tokens: newTokens,
-      },
-    });
-  };
-
   const registerUser = async (newUser: Prisma.userCreateInput) => {
     const hashedPassword = await bcrypt.hash(newUser.password, SALT_ROUNDS);
 
@@ -84,18 +60,13 @@ const createUserService = ({ prismaClient }: Dependencies) => {
       throw new BadRequest('Invalid login credentials');
     }
 
-    const { password, tokens, ...userWithoutPasswordAndTokens } = foundUser;
+    const { password, ...userWithoutPassword } = foundUser;
 
     // generate token
-    const token = await tokenProvider.sign(userWithoutPasswordAndTokens);
-
-    const updatedUser = await addTokenToUserById(foundUser.id, foundUser.tokens, token);
+    const token = await tokenProvider.sign(userWithoutPassword);
 
     return {
-      user: {
-        ...userWithoutPasswordAndTokens,
-        tokens: updatedUser.tokens,
-      },
+      user: userWithoutPassword,
       token,
     };
   };

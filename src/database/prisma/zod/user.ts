@@ -6,7 +6,6 @@ export const userModel = z.object({
   id: z.number().int().optional(),
   email: z.string(),
   password: z.string(),
-  tokens: z.string().array().optional(),
 });
 
 export interface Completeuser extends z.infer<typeof userModel> {

@@ -22,8 +22,6 @@ model user {
   id       Int      @id @default(autoincrement())
   email    String
   password String
-  /// @zod.optional()
-  tokens   String[]
   order    order[]
 }
 
