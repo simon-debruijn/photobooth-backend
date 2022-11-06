@@ -4,11 +4,13 @@
   "main": "dist/server.js",
   "type": "commonjs",
   "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "postinstall": "prisma generate",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --exit-child --watch src src/server.ts | pino-pretty",
-    "build": "tsc",
-    "start": "TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
+    "build": "prisma generate && tsc",
+    "start": "prisma migrate deploy && TS_NODE_PROJECT=tsconfig.prod.json node -r tsconfig-paths/register dist/server.js",
     "format": "prettier --write --ignore-path .gitignore . '!pnpm-lock.yaml'",
     "format:check": "prettier --check --ignore-path  .gitignore . '!pnpm-lock.yaml'",
     "lint": "eslint --fix --ignore-path .gitignore --ignore-path pnpm-lock.yaml ./src",
