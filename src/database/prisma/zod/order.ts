@@ -24,8 +24,8 @@ export const orderModel = z.object({
   description: z.string().nullish(),
   price: z.number(),
   images: z.string().array().optional(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
 });
 
 export interface Completeorder extends z.infer<typeof orderModel> {
