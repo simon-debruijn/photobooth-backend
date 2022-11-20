@@ -1,20 +1,19 @@
-import * as z from "zod"
-import { Decimal } from "decimal.js"
-import { Completeuser, RelateduserModel } from "./index"
+import * as z from 'zod';
+import { Decimal } from 'decimal.js';
+import { Completeuser, RelateduserModel } from './index';
 
 // Helper schema for Decimal fields
-z
-  .instanceof(Decimal)
+z.instanceof(Decimal)
   .or(z.string())
   .or(z.number())
   .refine((value) => {
     try {
-      return new Decimal(value)
+      return new Decimal(value);
     } catch (error) {
-      return false
+      return false;
     }
   })
-  .transform((value) => new Decimal(value))
+  .transform((value) => new Decimal(value));
 
 export const orderModel = z.object({
   id: z.number().int().optional(),
@@ -26,10 +25,10 @@ export const orderModel = z.object({
   images: z.string().array().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
-})
+});
 
 export interface Completeorder extends z.infer<typeof orderModel> {
-  user: Completeuser
+  user: Completeuser;
 }
 
 /**
@@ -37,6 +36,8 @@ export interface Completeorder extends z.infer<typeof orderModel> {
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const RelatedorderModel: z.ZodSchema<Completeorder> = z.lazy(() => orderModel.extend({
-  user: RelateduserModel,
-}))
+export const RelatedorderModel: z.ZodSchema<Completeorder> = z.lazy(() =>
+  orderModel.extend({
+    user: RelateduserModel,
+  }),
+);
